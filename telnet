@@ -1,0 +1,9 @@
+$regex = ":"
+$inputfile = "C:\Users\list_of_ip.txt"
+$outputfilepath = "C:\output.txt"
+
+foreach($line in Get-Content $inputfile)
+{
+$test = $line -split $regex 
+Test-NetConnection $test[0] -port $test[1] | select RemoteAddress,RemotePort,TcpTestSucceeded 
+}

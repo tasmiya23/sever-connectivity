@@ -1,9 +1,10 @@
+$ErrorActionPreference = 'SilentlyContinue'
 $regex = ":"
-$inputfile = "C:\Users\list_of_ip.txt"
-$outputfilepath = "C:\output.txt"
-
-foreach($line in Get-Content $inputfile)
+$inputfile = "C:\Users\Desktop\server_script\ip_list.txt"
+$outputfilepath = "C:\User\Desktop\server_script\output.txt"
+$result=foreach($line in (Get-Content $inputfile))
 {
 $test = $line -split $regex 
-Test-NetConnection $test[0] -port $test[1] | select RemoteAddress,RemotePort,TcpTestSucceeded 
+Test-NetConnection $test[0] -port $test[1] | select RemoteAddress,RemotePort,TcpTestSucceeded
 }
+$result | Out-File $outputfilepath -Force
